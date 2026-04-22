@@ -1,0 +1,13 @@
+name: base para actions
+
+on: [push]
+
+jobs:
+  info:
+    runs-on: ubuntu-lastest
+    steps:
+	- name: Gera saida do github context
+          run: echo "${{ toJSON9github) }}"
+
+
+
