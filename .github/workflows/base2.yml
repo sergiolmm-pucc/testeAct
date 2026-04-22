@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'teste/**'          # Só roda se houver alterações em arquivos dentro de lib/
-      - 'assets/**'       # Ou se houver alterações na pasta assets/
       # Adicione outras pastas ou arquivos conforme necessário
 
 
@@ -29,7 +28,7 @@ jobs:
     steps:
         - name: Lista diretorio
           run: ls -la
-        - name: Gera saida do github context
-          run: echo "${{ toJSON(github) }}"
+#        - name: Gera saida do github context
+#          run: echo "${{ toJSON(github) }}"
         - name: Dados 
           run: echo "${{ github.event.inputs.environment }}"  
