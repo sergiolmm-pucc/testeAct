@@ -38,7 +38,7 @@ jobs:
    
   print-env:
     needs: [set-environment]
-    if: needs.verificar_env.outputs.env_is_valid == 'true'
+    if: needs.set-environment.outputs.env_is_valid == 'true'
     runs-on: ubuntu-latest
     steps:
         - name: Lista diretorio
