@@ -1,0 +1,82 @@
+name: Teste do dispatch e needs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'teste/**'          # Só roda se houver alterações em arquivos dentro de lib/
+      # Adicione outras pastas ou arquivos conforme necessário
+
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment
+        type: choice
+        required: true
+        default: dev
+        options:
+              - web
+              - macOs
+              - android
+
+jobs:
+  set-environment:
+    runs-on: ubuntu-latest
+    outputs: 
+        env_is_valid: ${{ steps.checar_env.outputs.valid }}
+        env_valor: ${{ steps.set_val.outputs.valor }}
+    steps:
+        - name: Lista diretorio
+          run: ls -la
+        - name: Gera saida do github context
+          env:
+            GITHUB_CONTEXT: ${{ toJson(github) }}
+          run: echo "$GITHUB_CONTEXT"
+        - name: Dados 
+          run: echo "${{ github.event.inputs.environment }}"  
+        - name: Check Environment
+          id: checar_env
+          run: |
+            # Set the value (e.g., true/false)
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+        - name: seta valor
+          id: set_val
+          run: |
+            echo "valor=Sergio" >> "$GITHUB_OUTPUT"
+        - name: print inputs
+          env:
+            GITHUB_INPUT: ${{ toJson(github.event.inputs)}}
+          run: echo "$GITHUB_INPUT"      
+        - name: Set environment from branch or input
+          id: branch_check
+          run: |
+            if [ -n "${{ github.event.inputs.environment }}" ]; then
+              if  [ "${{ github.event.inputs.environment }}" = "macOs" ]; then
+                echo "env_name=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT   
+                echo "Variável MY_SECRET está definida"
+                echo "valid=true" >> $GITHUB_OUTPUT   
+              else
+                echo "Error: Invalid target"
+                echo "Variável MY_SECRET não está definida"
+                echo "valid=false" >> $GITHUB_OUTPUT
+              fi  
+            else
+              echo "Error: Invalid target"
+              echo "Variável MY_SECRET não está definida"
+              echo "valid=false" >> $GITHUB_OUTPUT
+            fi
+
+
+
+   
+  print-env:
+    needs: set-environment
+    if: ${{ needs.set-environment.outputs.env_is_valid == 'true'}} 
+    runs-on: ubuntu-latest
+    steps:
+        - name: Verifca se variavel setada1
+          run: echo "${{ needs.set-environment.outputs.env_is_valid }}"
+        - name: Verifca se variavel setada2
+          run: echo "${{ needs.set-environment.outputs.env_valor }}"          
