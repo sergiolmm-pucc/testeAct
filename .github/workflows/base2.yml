@@ -42,11 +42,13 @@ jobs:
             echo "valid=true" >> "$GITHUB_OUTPUT"
    
   print-env:
-    needs: [set-environment]
-    if: needs.checar_env.outputs.env_is_valid == 'true'
+    needs: set-environment
+    # if: needs.checar_env.outputs.env_is_valid == 'true'
     runs-on: ubuntu-latest
     steps:
         - name: Lista diretorio
           run: echo "env_is_valid"
         - name: Verifca se variavel setada
           run: echo "$GITHUB_OUTPUT"
+        - name: Verifca se variavel setada
+          run: echo "${{ needs.set-environment.outputs }}"
