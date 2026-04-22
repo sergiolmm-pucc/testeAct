@@ -30,6 +30,18 @@ jobs:
         - name: Lista diretorio
           run: ls -la
         - name: Gera saida do github context
-          run: echo "${{ toJSON(github) }}"
+          env:
+            GITHUB_CONTEXT: ${{ toJson(github) }}
+          run: echo "$GITHUB_CONTEXT"
         - name: Dados 
           run: echo "${{ github.event.inputs.environment }}"  
+   
+  print-env:
+    needs: [set-environment]
+    if: needs.verificar_env.outputs.env_is_valid == 'true'
+    runs-on: ubuntu-latest
+    steps:
+        - name: Lista diretorio
+          run: echo "env_is_valid"
+               
+               
