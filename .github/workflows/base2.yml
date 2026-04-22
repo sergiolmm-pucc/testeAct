@@ -1,4 +1,4 @@
-name: Deploy Flutter Web to FTP (Integrator)
+name: Teste do dispatch e needs
 
 on:
   push:
@@ -35,13 +35,20 @@ jobs:
           run: echo "$GITHUB_CONTEXT"
         - name: Dados 
           run: echo "${{ github.event.inputs.environment }}"  
+        - name: Check Environment
+          id: checar_env
+          run: |
+            # Set the value (e.g., true/false)
+            echo "valid=true" >> "$GITHUB_OUTPUT"
    
   print-env:
     needs: [set-environment]
-    if: needs.set-environment.outputs.env_is_valid == 'true'
+   # if: needs.checar_env.outputs.env_is_valid == 'true'
     runs-on: ubuntu-latest
     steps:
         - name: Lista diretorio
           run: echo "env_is_valid"
-               
-               
+        - name: Verifca se variavel setada
+          env:
+            GIT_VAR: ${{ needs }}           
+          run: echo "$GIT_VAR"
