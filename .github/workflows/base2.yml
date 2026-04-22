@@ -48,11 +48,9 @@ jobs:
    
   print-env:
     needs: set-environment
-    if: needs.set-enviroment.outputs.env_is_valid == true
+    if: ${{ needs.set-environment.outputs.env_is_valid == 'true'}} 
     runs-on: ubuntu-latest
     steps:
-        - name: Lista diretorio
-          run: echo "env_is_valid"
         - name: Verifca se variavel setada1
           run: echo "${{ needs.set-environment.outputs.env_is_valid }}"
         - name: Verifca se variavel setada2
