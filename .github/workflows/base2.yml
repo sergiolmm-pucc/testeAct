@@ -43,7 +43,7 @@ jobs:
    
   print-env:
     needs: set-environment
-    # if: needs.checar_env.outputs.env_is_valid == 'true'
+    # if: needs.set-enviroment.outputs.env_is_valid == 'true'
     runs-on: ubuntu-latest
     steps:
         - name: Lista diretorio
@@ -51,4 +51,4 @@ jobs:
         - name: Verifca se variavel setada
           run: echo "$GITHUB_OUTPUT"
         - name: Verifca se variavel setada
-          run: echo "${{ needs.set-environment.outputs }}"
+          run: echo "${{ needs.set-environment.outputs.env_is_valid }}"
