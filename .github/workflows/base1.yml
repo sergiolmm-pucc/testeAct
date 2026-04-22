@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'teste/**'   # so roda quando push no diretorio teste
- 			
 
 jobs:
   info:
@@ -14,5 +13,4 @@ jobs:
     steps:
       - name: Gera saida do github context
         run: echo "${{ toJSON(github) }}"
-
 
