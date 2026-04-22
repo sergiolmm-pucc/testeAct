@@ -26,6 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs: 
         env_is_valid: ${{ steps.checar_env.outputs.valid }}
+        env_valor: ${{ steps.set_val.outputs.valor }}
     steps:
         - name: Lista diretorio
           run: ls -la
@@ -40,15 +41,21 @@ jobs:
           run: |
             # Set the value (e.g., true/false)
             echo "valid=true" >> "$GITHUB_OUTPUT"
+        - name: seta valor
+          id: set_val
+          run: |
+            echo "valor='Sergio'" >> "$GITHUB_OUTPUT"
    
   print-env:
     needs: set-environment
-    # if: needs.set-enviroment.outputs.env_is_valid == 'true'
+    if: needs.set-enviroment.outputs.env_is_valid == 'true'
     runs-on: ubuntu-latest
     steps:
         - name: Lista diretorio
           run: echo "env_is_valid"
         - name: Verifca se variavel setada
           run: echo "$GITHUB_OUTPUT"
-        - name: Verifca se variavel setada
+        - name: Verifca se variavel setada1
           run: echo "${{ needs.set-environment.outputs.env_is_valid }}"
+        - name: Verifca se variavel setada2
+          run: echo "${{ needs.set-environment.outputs.env_valor }}"          
