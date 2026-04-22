@@ -43,12 +43,10 @@ jobs:
    
   print-env:
     needs: [set-environment]
-    env:
-        GIT_VAR: ${{ needs }}  
-   # if: needs.checar_env.outputs.env_is_valid == 'true'
+    if: needs.checar_env.outputs.env_is_valid == 'true'
     runs-on: ubuntu-latest
     steps:
         - name: Lista diretorio
           run: echo "env_is_valid"
         - name: Verifca se variavel setada
-          run: echo "$GIT_VAR"
+          run: echo "$GITHUB_OUTPUT"
