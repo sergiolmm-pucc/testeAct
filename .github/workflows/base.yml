@@ -6,8 +6,7 @@ jobs:
   info:
     runs-on: ubuntu-lastest
     steps:
-	- name: Gera saida do github context
-          run: echo "${{ toJSON9github) }}"
-
+      - name: Gera saida do github context
+        run: echo "${{ toJSON9github) }}"
 
 
