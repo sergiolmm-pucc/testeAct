@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - dev
+      - teste
     paths:
       - 'teste/**'          # Só roda se houver alterações em arquivos dentro de lib/
       # Adicione outras pastas ou arquivos conforme necessário

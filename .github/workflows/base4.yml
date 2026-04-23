@@ -1,0 +1,46 @@
+name: Deploy e teste diretorio
+
+on:
+  push:
+    branches:
+      - main
+      - teste
+    paths:
+      - 'teste/**'          # Só roda se houver alterações em arquivos dentro de lib/
+      # Adicione outras pastas ou arquivos conforme necessário
+
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment
+        type: choice
+        required: true
+        default: dev
+        options:
+              - web
+              - macOs
+              - android
+
+jobs:
+  build_and_deploy_sem_default_workDir:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: lista work directory
+        run: ls -la /home/runner/work/   
+
+
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web/gcseic25  # Define o diretório base para todos os comandos
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: lista work directory
+        run: ls -la /home/runner/work/           
