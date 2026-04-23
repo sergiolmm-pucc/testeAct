@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: testeAct/teste  # Define o diretório base para todos os comandos
+        working-directory: teste  # Define o diretório base para todos os comandos
 
     steps:
       - name: Checkout code
