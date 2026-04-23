@@ -1,4 +1,4 @@
-name: Teste do dispatch e needs
+name: Deploy e teste diretorio
 
 on:
   push:
