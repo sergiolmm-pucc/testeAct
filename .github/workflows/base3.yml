@@ -1,4 +1,4 @@
-name: Teste do dispatch e needs
+name: Teste do branches 
 
 on:
   push:
@@ -50,13 +50,10 @@ jobs:
           env:
             GITHUB_INPUT: ${{ toJson(github.event.inputs)}}
           run: echo "$GITHUB_INPUT"      
-
         - name: print inputs2
           env:
             GITHUB_INPUT: ${{ toJson(github.ref_name)}}
           run: echo "$GITHUB_INPUT"      
-
-
 
         - name: Set environment from branch or input
           id: branch_check
